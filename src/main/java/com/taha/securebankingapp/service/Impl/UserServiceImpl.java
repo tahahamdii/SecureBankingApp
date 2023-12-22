@@ -1,5 +1,6 @@
 package com.taha.securebankingapp.service.Impl;
 
+import com.taha.securebankingapp.dto.AccountInfo;
 import com.taha.securebankingapp.dto.BankResponse;
 import com.taha.securebankingapp.dto.UserRequest;
 import com.taha.securebankingapp.entity.User;
@@ -38,6 +39,17 @@ public class UserServiceImpl implements UserService {
                 .phoneNumber(userRequest.getPhoneNumber())
                 .alternativePhoneNumber(userRequest.getAlternativePhoneNumber())
                 .status("ACTIVE")
+                .build();
+
+        User savedUser = userRepository.save(newUser);
+        return BankResponse.builder()
+                .responseCode(AccountUtils.ACCOUNT_CREATION_SUCCESS)
+                .responseMessage(AccountUtils.ACCOUNT_CREATION_MESSAGE)
+                .accountInfo(AccountInfo.builder()
+                        .accountBalance(savedUser.getAccountBalance())
+                        .accountNumber(savedUser.getAccountNumber())
+                        .accountName(savedUser.getFirstName() + " " + savedUser.getLastName() + " " + savedUser.getOtherName())
+                        .build())
                 .build();
     }
 }
