@@ -5,6 +5,10 @@ import java.util.Map;
 
 public class AccountUtils {
 
+    public static final String ACCOUNT_EXISTS_CODE = "001";
+    public static final String ACCOUNT_EXISTS_MESSAGE = "This user already aandou";
+
+
 
     public static String generateAccountNumber(){
         Year currentYear = Year.now();
